@@ -1,6 +1,7 @@
 package com.crowd.mvc.config;
 
 import com.crowd.contant.CrowdConstant;
+import com.crowd.exception.AccessForbiddenException;
 import com.crowd.exception.LoginFailedException;
 import com.crowd.util.CrowdUtil;
 import com.crowd.util.ResultEntity;
@@ -16,6 +17,18 @@ import java.io.IOException;
 //该注解表示这是一个基于注解的异常处理类
 @ControllerAdvice
 public class CrowdExceptionResolver {
+
+
+    @ExceptionHandler(value = AccessForbiddenException.class)
+    public ModelAndView resolveAccessForbiddenException(
+            //实际捕获的异常类型
+            AccessForbiddenException exception,
+            //请求对象
+            HttpServletRequest request,
+            HttpServletResponse response){
+        String viewName = "admin-login";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     // @ExceptionHandler将一个具体的异常类型和一个方法关联起来
     @ExceptionHandler(value = LoginFailedException.class)
