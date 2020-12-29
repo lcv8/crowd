@@ -7,6 +7,10 @@ import com.crowd.exception.LoginFailedException;
 import com.crowd.mapper.AdminMapper;
 import com.crowd.service.api.AdminService;
 import com.crowd.util.CrowdUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +48,20 @@ public class AdminServiceImpl implements AdminService {
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
         }
         return admin;
+    }
+
+    @Override
+    public PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize) {
+        // 1.开启分页功能
+        PageHelper.startPage(pageNum,pageSize);
+        // 2.查询 Admin 数据
+        List<Admin> list = adminMapper.selectAdminListByKeyword(keyword);
+
+        // ※辅助代码：打印 adminList 的全类名
+        Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+        logger.debug(("adminList 的全类名是："+list.getClass().getName()));
+        // 3.为了方便页面使用将 list 封装为 PageInfo
+        PageInfo<Admin> adminPageInfo = new PageInfo<>(list);
+        return adminPageInfo;
     }
 }

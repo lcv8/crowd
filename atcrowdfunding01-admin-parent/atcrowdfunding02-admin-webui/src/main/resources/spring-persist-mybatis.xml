@@ -25,8 +25,27 @@
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!-- 指定 Mapper 配置文件位置 -->
         <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
-    </bean>
-    <!-- 配置 MapperScannerConfigurer -->
+        <!-- 配置 MyBatis 的插件 -->
+        <property name="plugins">
+            <array>
+                <!-- 配置 PageHelper -->
+                <bean class="com.github.pagehelper.PageHelper">
+                    <!-- 配置相关属性 -->
+                    <property name="properties">
+                        <props>
+                            <!-- 配置数据库方言，告诉 PageHelper 当前使用的具体数据库，-->
+                            <!-- 让 PageHelper 可以根据当前数据库生成对应的分页 SQL 语句 -->
+                            <prop key="dialect">mysql</prop>
+                            <!-- 配置页码的合理化修正 -->
+                            <!-- 让 PageHelper 自动把浏览器传来的 PageNum 修正到 0~总页数范围 -->
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                    </bean>
+                </array>
+            </property>
+        </bean>
+        <!-- 配置 MapperScannerConfigurer -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 使用 basePackage 属性指定 Mapper 接口所在包 -->
         <property name="basePackage" value="com.crowd.mapper"/>
