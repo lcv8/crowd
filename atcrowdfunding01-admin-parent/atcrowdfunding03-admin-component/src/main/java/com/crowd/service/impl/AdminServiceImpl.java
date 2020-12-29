@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author lcv8
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
@@ -50,7 +53,6 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
-    @Override
     public PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize) {
         // 1.开启分页功能
         PageHelper.startPage(pageNum,pageSize);
@@ -61,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
         Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
         logger.debug(("adminList 的全类名是："+list.getClass().getName()));
         // 3.为了方便页面使用将 list 封装为 PageInfo
-        PageInfo<Admin> adminPageInfo = new PageInfo<>(list);
+        PageInfo<Admin> adminPageInfo = new PageInfo(list);
         return adminPageInfo;
     }
 }

@@ -75,7 +75,7 @@
   
   <select id="selectAdminListByKeyword" resultMap="BaseResultMap">
     select
-    <include refid="ba"/>
+    *
     from t_admin
     where login_acct like concat("%",#{keyword},"%")
           or

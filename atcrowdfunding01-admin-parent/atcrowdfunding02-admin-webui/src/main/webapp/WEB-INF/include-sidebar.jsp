@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: OY
-  Date: 2020/5/1
-  Time: 10:27
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <div class="col-sm-3 col-md-2 sidebar">
     <div class="tree">
         <ul style="padding-left:0px;" class="list-group">
@@ -17,7 +12,7 @@
                                                                                              style="float:right">3</span></span>
                 <ul style="margin-top:10px;display:none;">
                     <li style="height:30px;">
-                        <a href="admin/get/page.html"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
+                        <a href="admin/page.html"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
                     </li>
                     <li style="height:30px;">
                         <a href="role/to/page.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a>
