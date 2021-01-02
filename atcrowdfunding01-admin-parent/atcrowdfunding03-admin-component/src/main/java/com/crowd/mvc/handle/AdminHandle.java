@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,7 +18,18 @@ public class AdminHandle {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping("admin/page.html")
+    @RequestMapping("admin/remove/{adminId}/{pageNum}/{keyword}.html")
+    public String remove(@PathVariable("adminId") Integer adminId ,
+                         @PathVariable("pageNum") Integer pageNum ,
+                         @PathVariable("keyword") String keyword){
+        //删除
+        adminService.remove(adminId);
+        //页面跳转 回到分页页面
+
+        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
+    }
+
+    @RequestMapping("admin/get/page.html")
     public String getAdminPage(@RequestParam(value = "keyword",defaultValue = "") String keyword ,
                                @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum ,
                                @RequestParam(value = "pageSize" , defaultValue = "5") Integer pageSize ,

@@ -66,4 +66,8 @@ public class AdminServiceImpl implements AdminService {
         PageInfo<Admin> adminPageInfo = new PageInfo(list);
         return adminPageInfo;
     }
+
+    public void remove(Integer adminId) {
+        adminMapper.deleteByPrimaryKey(adminId);
+    }
 }

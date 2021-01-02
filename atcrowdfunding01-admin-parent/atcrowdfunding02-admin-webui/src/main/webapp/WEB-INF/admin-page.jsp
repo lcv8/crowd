@@ -34,7 +34,7 @@
         //根据pageIndex计算得到pageNum
         var pageNum = pageIndex + 1;
         //跳转页面
-        window.location.href = "admin/page.html?pageNum="+pageNum+"&keyword=${param.keyword}";
+        window.location.href = "admin/get/page.html?pageNum="+pageNum+"&keyword=${param.keyword}";
         //由于每一个页码按钮都是超链接，所以我们要在这里取消超链接的默认行为
         return false;
     }
