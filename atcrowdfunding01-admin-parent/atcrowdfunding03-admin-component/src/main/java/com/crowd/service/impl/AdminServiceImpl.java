@@ -3,6 +3,8 @@ package com.crowd.service.impl;
 import com.crowd.contant.CrowdConstant;
 import com.crowd.entity.Admin;
 import com.crowd.entity.AdminExample;
+import com.crowd.exception.LoginAcctAlreadylnUseException;
+import com.crowd.exception.LoginAcctAlreadylnUseForUndateException;
 import com.crowd.exception.LoginFailedException;
 import com.crowd.mapper.AdminMapper;
 import com.crowd.service.api.AdminService;
@@ -12,8 +14,11 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,7 +72,40 @@ public class AdminServiceImpl implements AdminService {
         return adminPageInfo;
     }
 
+    //删除
     public void remove(Integer adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
+    }
+
+    //添加
+    public void insert(Admin admin) {
+        //密码加密
+        String userPswd = admin.getUserPswd();
+        userPswd = CrowdUtil.md5(userPswd);
+        admin.setUserPswd(userPswd);
+
+        //时间
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = dateFormat.format(date);
+        admin.setCreateTime(format);
+
+        adminMapper.insert(admin);
+    }
+
+    public void update(Admin admin) {
+        adminMapper.updateByPrimaryKeySelective(admin);
+    }
+
+    public Admin getAdminById(Integer adminId) {
+        try{
+            return adminMapper.selectByPrimaryKey(adminId);
+        } catch (Exception e){
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException) {
+                throw new LoginAcctAlreadylnUseForUndateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+        return null;
     }
 }

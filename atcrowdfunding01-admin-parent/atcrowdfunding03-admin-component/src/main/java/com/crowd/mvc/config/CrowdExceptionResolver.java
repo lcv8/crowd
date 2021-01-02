@@ -2,6 +2,8 @@ package com.crowd.mvc.config;
 
 import com.crowd.contant.CrowdConstant;
 import com.crowd.exception.AccessForbiddenException;
+import com.crowd.exception.LoginAcctAlreadylnUseException;
+import com.crowd.exception.LoginAcctAlreadylnUseForUndateException;
 import com.crowd.exception.LoginFailedException;
 import com.crowd.util.CrowdUtil;
 import com.crowd.util.ResultEntity;
@@ -18,6 +20,27 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
+    @ExceptionHandler(value = LoginAcctAlreadylnUseForUndateException.class)
+    public ModelAndView resolveLoginAcctAlreadylnUseForUndateException(
+            //实际捕获的异常类型
+            LoginAcctAlreadylnUseForUndateException exception,
+            //请求对象
+            HttpServletRequest request,
+            HttpServletResponse response){
+        String viewName = "system-error";
+        return commonResolve(viewName,exception,request,response);
+    }
+
+    @ExceptionHandler(value = LoginAcctAlreadylnUseException.class)
+    public ModelAndView resolveLoginAcctAlreadylnUseException(
+            //实际捕获的异常类型
+            LoginAcctAlreadylnUseException exception,
+            //请求对象
+            HttpServletRequest request,
+            HttpServletResponse response){
+        String viewName = "admin-add";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     @ExceptionHandler(value = AccessForbiddenException.class)
     public ModelAndView resolveAccessForbiddenException(

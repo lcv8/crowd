@@ -7,4 +7,7 @@ public interface AdminService {
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
     PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize);
     void remove(Integer adminId);
+    void insert(Admin admin);
+    void update(Admin admin);
+    Admin getAdminById(Integer adminId);
 }
