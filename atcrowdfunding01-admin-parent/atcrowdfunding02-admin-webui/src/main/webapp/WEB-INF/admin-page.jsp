@@ -63,9 +63,9 @@
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
-                            class=" glyphicon glyphicon-remove"></i> 删除
-                    </button>
+                    <a href=" admin/remove/${admin.id }/${requestScope.pageInfo.pageNum}/${param.keyword }.html" class="btn btn-danger" style="float:right;margin-left:10px;">
+                        <i class=" glyphicon glyphicon-remove"></i> 删除
+                    </a>
                     <a style="float: right;" href="admin/to/add/page.html" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> 新增
                     </a>
                     <br>
@@ -90,7 +90,7 @@
                                 <c:forEach items="${requestScope.pageInfo.list }" var="admin" varStatus="myStatus">
                                     <tr>
                                         <td>${myStatus.count }</td>
-                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox" name="${admin.id}"></td>
                                         <td>${admin.loginAcct }</td>
                                         <td>${admin.userName }</td>
                                         <td>${admin.email }</td>
