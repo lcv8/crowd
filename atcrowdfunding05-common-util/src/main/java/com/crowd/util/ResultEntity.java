@@ -17,10 +17,12 @@ public class ResultEntity<T> implements Serializable {
     private T data;
 
     public String getResult() {
+        System.out.println("调用getResult");
         return result;
     }
 
     public void setResult(String result) {
+        System.out.println("调用setResult");
         this.result = result;
     }
 
@@ -32,23 +34,32 @@ public class ResultEntity<T> implements Serializable {
         this.message = message;
     }
 
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
     //请求处理成功且不需要返回数据时使用的工具方法
-    public static <Type> ResultEntity<Type> successWithoutData() {
-        return new ResultEntity<Type>(SUCCESS, null, null);
+    public static <T> ResultEntity<T> successWithoutData() {
+        return new ResultEntity<T>(SUCCESS, null, null);
     }
     //请求处理成功且需要数据时使用的工具方法  要返回的数据
-    public static <Type> ResultEntity<Type> successWithData(Type data) {
-        return new ResultEntity<Type>(SUCCESS, null, data);
+    public static <T> ResultEntity<T> successWithData(T data) {
+        return new ResultEntity<T>(SUCCESS, null, data);
     }
     //请求处理失败后使用的工具方法   失败的错误消息
-    public static <Type> ResultEntity<Type> failed(String message) {
-        return new ResultEntity<Type>(FAILED, message, null);
+    public static <T> ResultEntity<T> failed(String message) {
+        return new ResultEntity<T>(FAILED, message, null);
     }
 
     public ResultEntity() {
     }
 
     public ResultEntity(String result, String message, T data) {
+        System.out.println("调用hou===》"+result);
         this.result = result;
         this.message = message;
         this.data = data;

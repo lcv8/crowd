@@ -119,10 +119,13 @@ function getPageInfoRemote() {
         layer.msg("服务器端程序调用失败！响应状态码是=" + statusCode + "说明信息=" + ajaxRs.statusText);
         return null;
     }
+    console.log(ajaxRs);
     // 如果响应状态码是200表示请求成功
     var resultEntity = ajaxRs.responseJSON;
+    console.log(resultEntity);
     // 从resultEntity中获取result属性
     var result = resultEntity.result;
+    console.log(result);
     // 判断result是否成功
     if (result == "FAILED") {
         layer.msg(resultEntity.message);
@@ -130,6 +133,7 @@ function getPageInfoRemote() {
     }
     // 确认result为成功后获取pageInfo
     var pageInfo = resultEntity.data;
+    console.log(pageInfo);
     // 返回pageInfo
     return pageInfo;
 }
